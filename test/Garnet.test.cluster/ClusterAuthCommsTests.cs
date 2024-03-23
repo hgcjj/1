@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,7 +17,7 @@ namespace Garnet.test.cluster
 
         readonly HashSet<string> monitorTests = new()
         {
-            //Add test names here to change logger verbosity
+            // Add test names here to change logger verbosity
         };
 
         [SetUp]
@@ -86,7 +85,7 @@ namespace Garnet.test.cluster
                 context.credManager.GetUserCredentials("admin");
 
             // Update cluster credential before setting up cluster
-            for (int i = 0; i < shards; i++)
+            for (var i = 0; i < shards; i++)
             {
                 context.clusterTestUtils.ConfigSet(i, "cluster-username", cred.user);
                 context.clusterTestUtils.ConfigSet(i, "cluster-password", cred.password);
@@ -235,7 +234,7 @@ namespace Garnet.test.cluster
                 context.clusterTestUtils.ConfigSet(i, "cluster-password", cc[1].password);
             }
 
-            // get epoch value and port for node 0
+            // Get epoch value and port for node 0
             var epoch0 = context.clusterTestUtils.GetConfigEpoch(0, logger: context.logger);
             var port0 = context.clusterTestUtils.GetEndPoint(0).Port;
 
@@ -247,7 +246,7 @@ namespace Garnet.test.cluster
                 foreach (var node in config.Nodes)
                 {
                     var port = ((IPEndPoint)node.EndPoint).Port;
-                    var epoch = Int32.Parse(node.Raw.Split(" ")[6]);
+                    var epoch = int.Parse(node.Raw.Split(" ")[6]);
                     if (port == port0 && epoch == epoch0)
                     {
                         i++;
